@@ -10,6 +10,16 @@ This app uses django rest framework in the backend and Vanilla JS in the fronten
 
 Front end initiates the authenticate request to the provider. The provider sends the code back to the frontned. The front end sends this code to the backend. The backend verifies this code, generates access code, finds required details and sends the data back to the frontend
 
+## Folder Structure
+
+There are two folders in the project
+
+1. Frontend
+2. Backend
+
+Frontend has two HTML and two JS files. The files handle initiating the Oauth flow and showing response from Backend.
+
+Backend authenticates user, saves it to database and returns authentication tokens. The tokens ought to be passed in every subsequent request to identify the user. 
 
 ## Installation
 
