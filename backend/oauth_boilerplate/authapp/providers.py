@@ -36,7 +36,6 @@ class CodeHandler:
         "redirect_uri":self.redirect_uri,
         "scope":self.scope
         }
-        print(self.redirect_uri)
         headers = {
             "Content-Type": "application/x-www-form-urlencoded"
         }

@@ -41,9 +41,7 @@ class LoginView(APIView):
     """
     
     def get(self, request, provider):
-        print('000')
         url = login_handler(provider)
-        print(url)
         # return Response(url)
         return redirect(url)
     
@@ -52,14 +50,14 @@ class RedirectView(APIView):
     Redirect API
     """
     def get(self, request, provider):
-        print('111')
+        
         code = request.GET.get('code')
         user = exchange_code_handler(code, provider)
         token = check_and_generate(user, provider)
     
         user = UserSerializer(token)
         response_data = user.data
-        print(response_data)
+        
         return Response({"User":response_data, "token":response_data['jwt']})
 
 class RestrictedAccessView(APIView):
@@ -111,13 +109,11 @@ def logout_view(request):
 @api_view(['GET'])
 def test_db(request):
     obj = User.objects.latest()
-    print(obj)
     return Response('Done')
     # Redirect to a success page.
 
 @api_view(['GET'])
 def get_code(request):
     code = request.GET.get('code')
-    print(code)
     return Response('Success')
         
