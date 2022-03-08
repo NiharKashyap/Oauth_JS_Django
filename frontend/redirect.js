@@ -5,11 +5,10 @@ function send_code()
       });
       // Get the value of "some_key" in eg "https://example.com/?some_key=some_value"
       let value = params.code; // "some_value"
-      
+      provider = window.localStorage.getItem('provider');
     $.ajax({ 
                 type : 'GET',
-                url : "https://127.0.0.1:8000/redirect/discord",
-                // url : "https://127.0.0.1:8000/redirect/google",
+                url : "https://127.0.0.1:8000/redirect/" + provider,
                 data:
                 {
                     'code':value
