@@ -14,6 +14,7 @@ function send_code()
                     'code':value
                 },
                 success: function(res){
+                window.localStorage.setItem('token', res.token);
                 h1(res.User.email)
                 h2(res.User.provider)
                 console.log(res)

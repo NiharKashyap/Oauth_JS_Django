@@ -28,7 +28,7 @@ SECRET_KEY = environ['SECRET_KEY']
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["*"]
 
 
 # Application definition
@@ -79,9 +79,8 @@ CORS_ALLOW_ALL_ORIGINS = True
 #     'http://127.0.0.1:3000'
 # ]
 
-CORS_ALLOW_HEADERS = list(default_headers) + [
-    "Access-Control-Allow-Origin:*",
-]
+CORS_ALLOW_HEADERS = ["*"]
+
 
 REST_FRAMEWORK = {
     "DEFAULT_AUTHENTICATION_CLASSES": [

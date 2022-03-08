@@ -99,11 +99,12 @@ def exchange_code_google(code):
     response = google_exchange.get_token("https://oauth2.googleapis.com/token")
     credentials = response.json()
     access_token = credentials["access_token"]
-    # print(access_token, credentials, response)
+    print(credentials)
     response = requests.get("https://www.googleapis.com/oauth2/v1/userinfo?alt=json", headers={
         "Authorization": "Bearer %s" % access_token
     })
     user = response.json()
+    print(user)
     user['auth_token'] = credentials["access_token"]
     user['refresh_token'] = credentials['refresh_token']
     user['first_name'] = user.pop('given_name')
