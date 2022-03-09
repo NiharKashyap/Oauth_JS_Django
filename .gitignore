@@ -3,3 +3,4 @@ keys.js
 node_modules/
 .env
 constants.py
+*.pem
