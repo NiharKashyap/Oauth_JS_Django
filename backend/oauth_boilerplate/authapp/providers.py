@@ -127,7 +127,7 @@ def exchange_code_fb(code):
     return(user)
 
 def exchange_code_discord(code):
-    handler = CodeHandler(DISCORD_CLIENT_ID, DISCORD_CLIENT_SECRET, code, "http://127.0.0.1:5500/frontend/redirect.html", DISCORD_SCOPE)
+    handler = CodeHandler(DISCORD_CLIENT_ID, DISCORD_CLIENT_SECRET, code, "https://127.0.0.1:5500/frontend/redirect.html", DISCORD_SCOPE)
     response = handler.get_token("https://discord.com/api/oauth2/token")
     credentials = response.json()
     access_token = credentials['access_token']

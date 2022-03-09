@@ -1,3 +1,6 @@
+{% load static %}
+{% static "static" as baseUrl %}
+<!DOCTYPE html>
 <html>
     <head>
     <title>
@@ -11,7 +14,10 @@
         <input class="sub" value="LinkedIn Login" type="submit" onclick="httpGetLinkedIn()">
         <input class="sub" value="Facebook Login" type="submit" onclick="httpGetFacebook()">
     </body>
-    <script type="text/javascript" src="test.js" crossorigin="anonymous"></script>
-    <script type="text/javascript" src="keys.js" crossorigin="anonymous"></script>
+    <!-- <script type="text/javascript" src="{{ url_for('static', path='/test.js') }}" crossorigin="anonymous"></script> -->
+    <!-- <script type="text/javascript" src="{{ url_for('static', path='/keys.js') }}" crossorigin="anonymous"></script> -->
+    
+    <!-- <script type="text/javascript" src="./static/test.js" crossorigin="anonymous"></script> -->
+    <!-- <script type="text/javascript" src="static/keys.js" crossorigin="anonymous"></script> -->
 
 </html>

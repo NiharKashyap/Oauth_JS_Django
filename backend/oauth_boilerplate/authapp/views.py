@@ -52,6 +52,7 @@ class RedirectView(APIView):
     def get(self, request, provider):
         
         code = request.GET.get('code')
+        print('codde ', code)
         user = exchange_code_handler(code, provider)
         token = check_and_generate(user, provider)
     
