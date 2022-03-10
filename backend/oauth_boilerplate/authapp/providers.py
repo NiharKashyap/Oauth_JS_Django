@@ -98,13 +98,13 @@ def exchange_code_google(code):
     google_exchange = CodeHandler(GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRET, code, GOOGLE_REDIRECT_URI)
     response = google_exchange.get_token("https://oauth2.googleapis.com/token")
     credentials = response.json()
+    # print('Credentials ', credentials)
     access_token = credentials["access_token"]
-    print(credentials)
     response = requests.get("https://www.googleapis.com/oauth2/v1/userinfo?alt=json", headers={
         "Authorization": "Bearer %s" % access_token
     })
     user = response.json()
-    print(user)
+    # print('User Response', user)
     user['auth_token'] = credentials["access_token"]
     user['refresh_token'] = credentials['refresh_token']
     user['first_name'] = user.pop('given_name')

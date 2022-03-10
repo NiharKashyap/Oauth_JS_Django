@@ -53,19 +53,20 @@ class RedirectView(APIView):
         
         code = request.GET.get('code')
         print('codde ', code)
+        print('providr ', provider)
         user = exchange_code_handler(code, provider)
         token = check_and_generate(user, provider)
     
         user = UserSerializer(token)
         response_data = user.data
         
-        return Response({"User":response_data, "token":response_data['jwt']})
+        return JsonResponse({"token":response_data['jwt']})
 
 class RestrictedAccessView(APIView):
     
     authentication_classes = [CustomAuthentication]
     
-    
+    print("In restricted Area")
     def get(self, request):
         user = User.objects.filter(id = request.user.id).first()
         serializer = UserSerializer(user)
