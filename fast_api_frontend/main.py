@@ -32,9 +32,17 @@ def redirect(provider, request:Request, code:str):
     print("Provider ", provider)
     print("Code", code)
     res = requests.get("https://127.0.0.1:8000/redirect/" + provider + "?code=" + code, verify=False)
-    print(res.json()['token'])
-    token = res.json()['token']
-    return templates.TemplateResponse("redirect.html", {'request':request, 'token':token})
+    res = res.json()
+    print(res.keys())
+    
+    if 'Error' in res.keys():
+        print('Error', res['Error'])
+        error=res['Error']
+        token='None'
+    else:
+        error='None'
+        token = res['token']
+    return templates.TemplateResponse("redirect.html", {'request':request, 'token':token, 'error':error})
 
 @app.get("/access/")
 def access(request:Request, Authorization: str | None = Header(None)):
@@ -42,6 +50,6 @@ def access(request:Request, Authorization: str | None = Header(None)):
     authmeth, auth = Authorization.split(" ", 1)
     headers = {'Authorization': 'Bearer ' + auth}
     res = requests.get("https://127.0.0.1:8000/access/", headers=headers, verify=False)
-    print(res.json())
+    # print(res.json())
     return JSONResponse(res.json())
     # return templates.TemplateResponse("restricted.html", {'request':request})

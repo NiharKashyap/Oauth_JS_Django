@@ -2,10 +2,8 @@ from logging import raiseExceptions
 import jwt
 import requests
 from .models import User
-from .serializers import UserSerializer
 
 def check_and_generate(user, provider):
-    existing_user = User.objects.filter(social_id=user['id'])
     
     try:
         user = User.objects.get(social_id=user['id'])

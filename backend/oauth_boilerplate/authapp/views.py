@@ -2,7 +2,7 @@
 #TODO: 2. Reference custom auth repo: https://github.com/anu37/DjangoCustomAuthentication/blob/master/customauth/auth.py 
 
 from .models import User
-
+from django.db import IntegrityError
 from rest_framework.permissions import IsAuthenticated
 from rest_framework import status
 from rest_framework.response import Response
@@ -52,11 +52,17 @@ class RedirectView(APIView):
     def get(self, request, provider):
         
         code = request.GET.get('code')
-        print('codde ', code)
-        print('providr ', provider)
         user = exchange_code_handler(code, provider)
         token = check_and_generate(user, provider)
-    
+        print('Exception or user ', token)
+        print(type(token))
+        
+        if isinstance(token, IntegrityError):
+            return JsonResponse({"Error":"User with same Email ID already exist"})
+            
+        elif isinstance(token, User):
+            print('User token')
+            
         user = UserSerializer(token)
         response_data = user.data
         

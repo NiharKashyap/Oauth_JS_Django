@@ -16,7 +16,7 @@ class User(AbstractUser):
     email = models.CharField(max_length=320, unique=True)
     social_id = models.CharField(max_length=255)
     auth_token=models.CharField(max_length=512)
-    refresh_token=models.CharField(max_length=512, blank=True)
+    refresh_token=models.CharField(max_length=512, blank=True, null=True)
     jwt = models.CharField(max_length=512)
     extra_data = models.JSONField(default=dict)
     date_joined = models.DateTimeField(auto_now_add=True)

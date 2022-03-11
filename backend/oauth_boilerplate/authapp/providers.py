@@ -105,8 +105,8 @@ def exchange_code_google(code):
     })
     user = response.json()
     # print('User Response', user)
-    user['auth_token'] = credentials["access_token"]
-    user['refresh_token'] = credentials['refresh_token']
+    user['auth_token'] = credentials.get("access_token", None)
+    user['refresh_token'] = credentials.get('refresh_token',None)
     user['first_name'] = user.pop('given_name')
     user['last_name'] = user.pop('family_name')
     return(user)
