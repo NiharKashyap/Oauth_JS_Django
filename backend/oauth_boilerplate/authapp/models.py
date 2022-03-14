@@ -1,11 +1,11 @@
+from http import client
+from statistics import mode
 from turtle import update
 from django.db import models
 from django.contrib.auth.models import AbstractUser
 from .managers import UserSocialManager
 
 # Create your models here.
-
-
 
 class User(AbstractUser):
     
