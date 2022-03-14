@@ -1,5 +1,3 @@
-#TODO: 1. Create custom authentication based on this url: https://stackoverflow.com/questions/32844784/django-rest-framework-custom-authentication
-#TODO: 2. Reference custom auth repo: https://github.com/anu37/DjangoCustomAuthentication/blob/master/customauth/auth.py 
 
 from .models import User
 from django.db import IntegrityError

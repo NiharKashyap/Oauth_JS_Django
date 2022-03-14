@@ -27,6 +27,7 @@
                 $.ajax({
                     type:"GET",
                     url:"https://127.0.0.1:5500/access",
+                    // url:"https://localhost:5500/access",
                     
                     headers:
                     {
@@ -83,7 +84,6 @@
         <h1>Successsfull Redirect</h1>
 
         <a href="https://127.0.0.1:5500/">Back</a>
-        <a href="https://127.0.0.1:5500/access/">Access</a>
         <button onclick="get_details()">Get Access</button>
         <p>Token: {{token}}</p>
     </body>
