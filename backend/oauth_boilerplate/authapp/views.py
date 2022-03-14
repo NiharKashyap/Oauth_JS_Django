@@ -55,7 +55,6 @@ class RedirectView(APIView):
         user = exchange_code_handler(code, provider)
         token = check_and_generate(user, provider)
         print('Exception or user ', token)
-        print(type(token))
         
         if isinstance(token, IntegrityError):
             return JsonResponse({"Error":"User with same Email ID already exist"})

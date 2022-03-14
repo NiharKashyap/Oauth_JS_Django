@@ -1,12 +1,22 @@
-from http import client
-from statistics import mode
-from turtle import update
+
+from unicodedata import name
 from django.db import models
 from django.contrib.auth.models import AbstractUser
+
 from .managers import UserSocialManager
 
 # Create your models here.
-
+class Providers(models.Model):
+    name = models.CharField(max_length=50)
+    auth_url = models.CharField(max_length=256)
+    client_secret = models.CharField(max_length=256)
+    client_id = models.CharField(max_length=256)
+    redirect_uri = models.CharField(max_length=256)
+    scope = models.CharField(max_length=256, blank=True)
+    state = models.CharField(max_length=256, blank=True)
+    response_type=models.CharField(max_length=256, blank=True)
+    access_type=models.CharField(max_length=256, blank=True)
+    
 class User(AbstractUser):
     
     objects = UserSocialManager()
