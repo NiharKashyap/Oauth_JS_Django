@@ -20,7 +20,8 @@ class UserSocialManager(UserManager):
                 )
             return new_user
         except Exception as e:
-            print(e)
-            raise e
+            # print('EXception from ' + __file__, e)
+            # raise e
+            return e
             
             

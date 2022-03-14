@@ -1,20 +1,3 @@
-# class UserCookieMiddleWare:
-#     """
-#     Middleware to set user cookie
-#     If user is authenticated and there is no cookie, set the cookie,
-#     If the user is not authenticated and the cookie remains, delete it
-#     """
-
-#     def process_response(self, request, response):
-#         #if user and no cookie, set cookie
-#         if request.user.is_authenticated() and not request.COOKIES.get('user'):
-#             response.set_cookie("user", 'Hello Cookie')
-#         elif not request.user.is_authenticated() and request.COOKIES.get('user'):
-#             #else if if no user and cookie remove user cookie, logout
-#             response.delete_cookie("user")
-#         return response
-    
-from rest_framework.response import Response
 from rest_framework.exceptions import AuthenticationFailed
 import requests
 from django.http import HttpResponse
@@ -43,14 +26,3 @@ class TokenMiddleware:
         response = self.get_response(request)
         return response
     
-class corsMiddleware:
-    def __init__(self, get_response):
-        self.get_response = get_response
-        
-    def __call__(self, request):
-        
-        response = self.get_response(request)
-        response["Access-Control-Allow-Origin"] = "*"
-        
-        print('In Cors middleware')
-        return response

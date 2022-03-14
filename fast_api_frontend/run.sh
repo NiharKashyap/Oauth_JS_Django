@@ -1,0 +1,1 @@
+uvicorn main:app --port 5500 --reload --ssl-keyfile=./127.0.0.1-key.pem --ssl-certfile=./127.0.0.1.pem

@@ -6,11 +6,28 @@
         <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
         <script>
             var toke = "{{token}}"
-            function details()
+            var err = "{{error}}"
+            
+            function validate()
+            {
+                console.log(err)
+                if(err=='None')
+                {
+                    console.log('Calling AJAX')
+                }
+                else
+                {
+                    console.log('Calling err')
+                    call_error()
+                }
+            }
+
+            function call_ajax()
             {
                 $.ajax({
                     type:"GET",
                     url:"https://127.0.0.1:5500/access",
+                    // url:"https://localhost:5500/access",
                     
                     headers:
                     {
@@ -31,6 +48,12 @@
                     }
                 })
             }
+
+            function get_details()
+            {
+                console.log(err)
+                call_ajax()
+            }
     
             function authorized(data)
             {
@@ -47,15 +70,21 @@
                 h2.appendChild(document.createTextNode('You are Not authorized'))
                 document.body.appendChild(h2)
             }
+            function call_error()
+            {
+                var h2 = document.createElement('h2')
+                h2.appendChild(document.createTextNode(err))
+                document.body.appendChild(h2)
+            }
             
          </script>
 
     </head>
-    <body">
+    <body onload="validate()">
         <h1>Successsfull Redirect</h1>
+
         <a href="https://127.0.0.1:5500/">Back</a>
-        <a href="https://127.0.0.1:5500/access/">Access</a>
-        <button onclick="details()">Get Access</button>
+        <button onclick="get_details()">Get Access</button>
         <p>Token: {{token}}</p>
     </body>
 </html>
