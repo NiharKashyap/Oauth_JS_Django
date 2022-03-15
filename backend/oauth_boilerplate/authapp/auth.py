@@ -1,8 +1,7 @@
 from .models import User
-from django.conf import settings
 from rest_framework.authentication import BaseAuthentication
 from rest_framework import exceptions
-
+import jwt
 class CustomAuthentication(BaseAuthentication):
 
     def authenticate(self, request, **kwargs):
@@ -32,8 +31,11 @@ class CustomAuthentication(BaseAuthentication):
         """
         Verify if JWT exist in db
         """
-        if User.objects.filter(jwt=auth).exists():
-            user = User.objects.get(jwt=auth)
-            return user
-        else:
+        try:
+            payload = jwt.decode(auth, "secret", algorithms=["HS256"], verify_exp=True)
+            print('Payload ', payload)
+            return User.objects.get(social_id=payload["id"])
+        except Exception as e:
+            # Signature has expired
+            print('Exception ', str(e))
             return None

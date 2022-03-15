@@ -16,9 +16,9 @@ from django.contrib.auth import logout
 from django.http import  HttpResponse, JsonResponse
 import jwt
 from .utils import check_and_generate
-
+import datetime
 from .auth import CustomAuthentication
-
+import pytz
 
 class GetTokenView(APIView):
     def post(self, request):
@@ -27,9 +27,10 @@ class GetTokenView(APIView):
         """
     
         id = request.data['id']
-        fname = request.data['email']
+        mail = request.data['email']
+        exp = datetime.datetime.now(pytz.utc) + datetime.timedelta(seconds=30)
         
-        encoded_jwt = jwt.encode({"id":id, "fname":fname}, "secret", algorithm="HS256")
+        encoded_jwt = jwt.encode({"id":id, "mail":mail, "exp":exp }, "secret", algorithm="HS256")
         jwt_dict = {'jwt':encoded_jwt}
         return JsonResponse(jwt_dict)
 
