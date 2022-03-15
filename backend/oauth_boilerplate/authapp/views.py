@@ -28,7 +28,7 @@ class GetTokenView(APIView):
     
         id = request.data['id']
         mail = request.data['email']
-        exp = datetime.datetime.now(pytz.utc) + datetime.timedelta(seconds=30)
+        exp = datetime.datetime.now(pytz.utc) + datetime.timedelta(minutes=2)
         
         encoded_jwt = jwt.encode({"id":id, "mail":mail, "exp":exp }, "secret", algorithm="HS256")
         jwt_dict = {'jwt':encoded_jwt}
