@@ -1,8 +1,11 @@
-from .models import User
 from rest_framework.authentication import BaseAuthentication
 from rest_framework import exceptions
 import jwt
+
+from .models import User
 from .utils import verify_access_token
+
+
 class CustomAuthentication(BaseAuthentication):
 
     def authenticate(self, request, **kwargs):
