@@ -20,7 +20,21 @@ import datetime
 from .auth import CustomAuthentication
 import pytz
 
-class GetTokenView(APIView):
+class ValidateTokenView(APIView):
+    def post(self, request):
+        auth = request.data['auth']
+        try:
+            payload = jwt.decode(auth, "secret", algorithms=["HS256"])
+            print('Payload ', payload)
+            user = User.objects.get(social_id=payload["id"])
+            serialized = UserSerializer(user)
+            return JsonResponse({'user': serialized.data})
+        except Exception as e:
+            # Signature has expired
+            print('Exception ', str(e))
+            return JsonResponse(None)
+
+class GenerateTokenView(APIView):
     def post(self, request):
         """
         Create jwt token from user social id and email
@@ -28,7 +42,7 @@ class GetTokenView(APIView):
     
         id = request.data['id']
         mail = request.data['email']
-        exp = datetime.datetime.now(pytz.utc) + datetime.timedelta(minutes=2)
+        exp = datetime.datetime.now(pytz.utc) + datetime.timedelta(hours=2)
         
         encoded_jwt = jwt.encode({"id":id, "mail":mail, "exp":exp }, "secret", algorithm="HS256")
         jwt_dict = {'jwt':encoded_jwt}
@@ -111,15 +125,4 @@ def logout_view(request):
     return request('/')
     # Redirect to a success page.
 
-
-@api_view(['GET'])
-def test_db(request):
-    obj = User.objects.latest()
-    return Response('Done')
-    # Redirect to a success page.
-
-@api_view(['GET'])
-def get_code(request):
-    code = request.GET.get('code')
-    return Response('Success')
         

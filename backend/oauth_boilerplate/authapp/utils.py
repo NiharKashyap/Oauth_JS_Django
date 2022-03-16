@@ -9,14 +9,14 @@ def check_and_generate(user, provider):
         old_user = User.objects.get(social_id=user['id'])
         verify = verify_access_token(old_user.jwt)
         if verify==None:
-            r=requests.post('https://127.0.0.1:8000/get_token', data=user, verify=False)
+            r=requests.post('https://127.0.0.1:8000/generate_token', data=user, verify=False)
             old_user.jwt = r.json()['jwt']
             old_user.save()
         
         return old_user
             
     except:
-        r=requests.post('https://127.0.0.1:8000/get_token', data=user, verify=False)
+        r=requests.post('https://127.0.0.1:8000/generate_token', data=user, verify=False)
         r_json = r.json()
         user['jwt'] = r_json['jwt']
         new_user = User.objects.create_new_user(user, provider)
