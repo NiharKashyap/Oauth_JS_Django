@@ -61,5 +61,22 @@ DEBUG=0
 
 ```
 
+# How to use it in you project
+
+## Pre Configuration
+
+You need to log in to the admin panel of django and add provider details. The name of provider must match the `<provider>` in the URLs.
+Configure the redirect_uri of provider such that it redirects to `redirect/<provider>`
+
+## There are 4 main API's you need to call:
+
+1. `login/<provider>`: This will redirect to the login screen of the provider
+
+2. `redirect/<provider>`: This will catch the authorization code in the redirect and get the required details. In case of client side authentication redirect to the frontend, grab the code and then send it to this API.
+
+3. `generate_token/`: Send a post request with user social id and email to generate jwt
+
+4. `validate/`: Validate the jwt. Returns user or exception if invalid   
+
 
 
